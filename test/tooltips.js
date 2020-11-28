@@ -1,57 +1,44 @@
-const assert = require("assert");
-const pug = require("pug");
-const fs = require("fs");
-const path = require("path");
+var assert = require('assert');
+var pug = require('pug');
+var fs = require('fs');
+var path = require('path');
 
-describe("Tooltips",function() {
+var types = ["left", "right", "top", "bottom"];
 
-    it("should generate a top tooltip", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips","top-tooltip.pug"));
-        let locals = {
-            text: "Top tooltip",
-            tooltip: "Tooltip on the top",
-            placement: "top"
-        };
+describe('Tooltips', function () {
 
-        let markup = `<a href="#" data-toggle="tooltip" data-placement="${locals.placement}" title="${locals.tooltip}">${locals.text}</a>`;
-        assert.equal(markup,fn(locals));
+    // Write fixture data    
+    types.forEach(function (m) {
+        var fileTemplate = `include ../../../components/tooltips.pug
++tooltip-${m}(text,tooltip,href)`;
+        var fileName = `tooltip-${m}.pug`;
+        fs.writeFileSync(path.join(__dirname, "fixtures/tooltips", fileName), fileTemplate);
     });
 
-
-    it("should generate a bottom tooltip", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips","bottom-tooltip.pug"));
-        let locals = {
-            text: "Bottom tooltip",
-            tooltip: "Tooltip on the bottom",
-            placement: "bottom"
-        };
-
-        let markup = `<a href="#" data-toggle="tooltip" data-placement="${locals.placement}" title="${locals.tooltip}">${locals.text}</a>`;
-        assert.equal(markup,fn(locals));
+    // specs
+    types.forEach(function (type) {
+        var spec = `should render a ${type} tooltip (no href)`;
+        it(spec, function () {
+            var fixture = `tooltip-${type}.pug`;
+            var locals = {
+                text: `${type} tooltip text`,
+                tooltip: `${type}-tooltip`
+            };
+            var actual = `<a href="#" data-toggle="${locals.tooltip}" data-placement="${type}" title="${locals.tooltip}">${locals.text}</a>`;
+            var fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips", fixture));
+            assert.equal(actual, fn(locals));
+        });
+        var spec = `should render a ${type} tooltip (supplied href)`;
+        it(spec, function () {
+            var fixture = `tooltip-${type}.pug`;
+            var locals = {
+                text: `${type} tooltip text`,
+                tooltip: `${type}-tooltip`,
+                href: `${type}-link`
+            };
+            var actual = `<a href="${locals.href}" data-toggle="${locals.tooltip}" data-placement="${type}" title="${locals.tooltip}">${locals.text}</a>`;
+            var fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips", fixture));
+            assert.equal(actual, fn(locals));
+        });
     });
-
-    it("should generate a left tooltip", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips","left-tooltip.pug"));
-        let locals = {
-            text: "Left tooltip",
-            tooltip: "Tooltip on the left",
-            placement: "left"
-        };
-
-        let markup = `<a href="#" data-toggle="tooltip" data-placement="${locals.placement}" title="${locals.tooltip}">${locals.text}</a>`;
-        assert.equal(markup,fn(locals));
-    });
-
-    it("should generate a right tooltip", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/tooltips","right-tooltip.pug"));
-        let locals = {
-            text: "Right tooltip",
-            tooltip: "Tooltip on the right",
-            placement: "right"
-        };
-
-        let markup = `<a href="#" data-toggle="tooltip" data-placement="${locals.placement}" title="${locals.tooltip}">${locals.text}</a>`;
-        assert.equal(markup,fn(locals));
-    });
-
 });

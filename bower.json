@@ -1,14 +1,20 @@
 {
-  "name": "jade-bootstrap",
-  "version": "1.0.0",
-  "homepage": "https://github.com/rajasegar/JADE-Bootstrap",
+  "name": "pug-bootstrap",
+  "version": "0.0.15",
+  "homepage": "https://github.com/mike-goodwin/pug-bootstrap",
   "authors": [
-    "Rajasegar <rajasegar.c@gmail.com>"
+    "https://github.com/mike-goodwin",
+    "https://github.com/techjeffharris",
+    "https://github.com/Nakira",
+    "https://github.com/thylux",
+    "https://github.com/kraftman",
+    "https://github.com/thamys",
+    "https://github.com/liuxiaoworld"
   ],
-  "description": "Bootstrap framework written completely using mixins in JADE",
-  "main": "bootstrap.jade",
+  "description": "Bootstrap framework written completely using mixins in pug - forked from JADE-Bootstrap",
+  "main": "_bootstrap.pug",
   "keywords": [
-    "jade",
+    "pug",
     "bootstrap",
     "frontend",
     "ui",

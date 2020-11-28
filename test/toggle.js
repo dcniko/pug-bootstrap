@@ -1,73 +1,92 @@
-const assert = require("assert");
-const pug = require("pug");
-const fs = require("fs");
-const path = require("path");
+var assert = require('assert');
+var pug = require('pug');
+var fs = require('fs');
+var path = require('path');
 
-describe("Toggles",function() {
+var types = ["default", "primary", "success", "info", "warning", "danger"];
 
-    it("should generate a primary toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","primary-toggle.pug"));
-        let locals = {
-            type: 'primary',
-            text: 'Primary Toggle'
-        };
+describe('Single Toggles', function () {
 
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
+    // Write fixture data    
+    types.forEach(function (m) {
+        var fileTemplate = `include ../../../components/toggle.pug
++toggle-${m}(caption)`;
+        var fileName = `toggle-${m}.pug`;
+        fs.writeFileSync(path.join(__dirname, "fixtures/toggles", fileName), fileTemplate);
     });
 
-    it("should generate a default toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","default-toggle.pug"));
-        let locals = {
-            type: 'default',
-            text: 'Default Toggle'
-        };
+    // specs
+    types.forEach(function (type) {
+        var spec = `should render a ${type} toggle`;
+        it(spec, function () {
+            var fixture = `toggle-${type}.pug`;
+            var locals = { caption: `${type} toggle caption` };
+            var actual = `<button class="btn btn-${type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${type} toggle caption</button>`;
+            var fn = pug.compileFile(path.join(__dirname, "fixtures/toggles", fixture));
+            assert.equal(actual, fn(locals));
+        });
+    });
+});
 
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
+describe('Group Toggles', function () {
+
+    var items = [
+        {
+            caption: 'caption0'
+        },
+        {
+            caption: 'caption1'
+        },
+        {
+            caption: 'caption2'
+        },
+    ];
+    describe('Radio Toggles', function () {
+        // Write fixture data    
+        types.forEach(function (m) {
+            var fileTemplate = `include ../../../components/toggle.pug
++radio-toggle-${m}(name,items,active)`;
+            var fileName = `radio-toggle-${m}.pug`;
+            fs.writeFileSync(path.join(__dirname, "fixtures/toggles", fileName), fileTemplate);
+        });
+        //specs
+        types.forEach(function (type) {
+            var spec = `should render a ${type} radio toggle group`;
+            it(spec, function () {
+                var fixture = `radio-toggle-${type}.pug`;
+                var locals = {
+                    items: items,
+                    active: 1,
+                    name: `${type} radio toggle`
+                };
+                var actual = `<div class="btn-group" data-toggle="buttons"><label class="btn btn-${type}"><input type="radio" name="${locals.name}" autocomplete="off"/> caption0</label><label class="btn active btn-${type}"><input type="radio" name="${locals.name}" autocomplete="off" checked="checked"/> caption1</label><label class="btn btn-${type}"><input type="radio" name="${locals.name}" autocomplete="off"/> caption2</label></div>`;
+                var fn = pug.compileFile(path.join(__dirname, "fixtures/toggles", fixture));
+                assert.equal(actual, fn(locals));
+            });
+        });
     });
 
-    it("should generate a info toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","info-toggle.pug"));
-        let locals = {
-            type: 'info',
-            text: 'Info Toggle'
-        };
-
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
-    });
-
-    it("should generate a warning toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","warning-toggle.pug"));
-        let locals = {
-            type: 'warning',
-            text: 'Warning Toggle'
-        };
-
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
-    });
-
-    it("should generate a success toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","success-toggle.pug"));
-        let locals = {
-            type: 'success',
-            text: 'Success Toggle'
-        };
-
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
-    });
-
-    it("should generate a danger toggle", function(){
-        let fn = pug.compileFile(path.join(__dirname, "fixtures/toggles","danger-toggle.pug"));
-        let locals = {
-            type: 'danger',
-            text: 'Danger Toggle'
-        };
-
-        let markup = `<button class="btn btn-${locals.type}" type="button" data-toggle="button" aria-pressed="false" autocomplete="off">${locals.text}</button>`;
-        assert.equal(markup,fn(locals));
+    describe('Checkbox Toggles', function () {
+        // Write fixture data    
+        types.forEach(function (m) {
+            var fileTemplate = `include ../../../components/toggle.pug
++checkbox-toggle-${m}(items,active)`;
+            var fileName = `checkbox-toggle-${m}.pug`;
+            fs.writeFileSync(path.join(__dirname, "fixtures/toggles", fileName), fileTemplate);
+        });
+        //specs
+        types.forEach(function (type) {
+            var spec = `should render a ${type} checkbox toggle group`;
+            it(spec, function () {
+                var fixture = `checkbox-toggle-${type}.pug`;
+                var locals = {
+                    items: items,
+                    active: 1
+                };
+                var actual = `<div class="btn-group" data-toggle="buttons"><label class="btn btn-${type}"><input type="checkbox" autocomplete="off"/> caption0</label><label class="btn active btn-${type}"><input type="checkbox" autocomplete="off" checked="checked"/> caption1</label><label class="btn btn-${type}"><input type="checkbox" autocomplete="off"/> caption2</label></div>`;
+                var fn = pug.compileFile(path.join(__dirname, "fixtures/toggles", fixture));
+                assert.equal(actual, fn(locals));
+            });
+        });
     });
 });

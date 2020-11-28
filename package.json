@@ -1,36 +1,44 @@
 {
-  "name": "jade-bootstrap",
-  "version": "1.0.15",
-  "description": "Bootstrap framework written completely using mixins in JADE",
-  "main": "bootstrap.jade",
+  "name": "pug-bootstrap",
+  "version": "0.0.16",
+  "description": "Bootstrap framework written completely using mixins in pug",
+  "main": "bootstrap.pug",
   "scripts": {
     "test": "mocha -R spec"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rajasegar/JADE-Bootstrap.git"
+    "url": "https://github.com/mike-goodwin/pug-bootstrap.git"
   },
   "keywords": [
-    "jade",
+    "pug",
     "bootstrap",
     "twitter",
     "bootstrap",
     "frontend",
     "ui",
     "framework",
-    "jade",
     "mixins"
   ],
-  "author": "Rajasegar Chandiran",
-  "license": "Apache",
+  "author": "Mike Goodwin",
+  "contributors": [
+    "https://github.com/techjeffharris",
+    "https://github.com/Nakira",
+    "https://github.com/thylux",
+    "https://github.com/kraftman",
+    "https://github.com/thamys",
+    "https://github.com/liuxiaoworld",
+    "https://github.com/cmedianu"
+  ],
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rajasegar/JADE-Bootstrap/issues"
+    "url": "https://github.com/mike-goodwin/pug-bootstrap/issues"
   },
-  "homepage": "https://github.com/rajasegar/JADE-Bootstrap",
+  "homepage": "https://github.com/mike-goodwin/pug-bootstrap",
   "devDependencies": {
-    "pug": "^2.0.0-beta11",
-    "jasmine": "^2.4.1",
     "mocha": "^2.3.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "pug": "2.0.3"
+  }
 }

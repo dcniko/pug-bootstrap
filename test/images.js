@@ -8,7 +8,6 @@ describe("Images", function() {
         var fn = pug.compileFile(path.join(__dirname, "fixtures/images","img-responsive.pug"));
         assert.equal('<img class="img-responsive" src="a.jpg" alt="My Image"/>',fn(locals));
     });
-
     it("should generate a responsive center image",function() {
         var fn = pug.compileFile(path.join(__dirname, "fixtures/images","img-responsive-center.pug"));
         assert.equal('<img class="img-responsive center-block" src="a.jpg" alt="My Image"/>',fn(locals));

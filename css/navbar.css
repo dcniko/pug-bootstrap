@@ -6,3 +6,10 @@ body {
 .navbar {
   margin-bottom: 20px;
 }
+
+.bg-dark {
+    background-color: #343a40 !important;
+}
+.navbar-bg-dark {
+    background-color: #343a40 !important;
+}
