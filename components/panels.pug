@@ -1,38 +1,38 @@
 //- panel
 mixin panel(type,title)
-    .panel(class="panel-" + type)
-        if undefined !== title
-            .panel-heading
-                h3.panel-title= title
-        .panel-body
-            block
+    .div(class="card bg-"+type)
+        .div(class="card-header")
+            .h5= title
+        .div(class="card-body")
+            .card-text
+                block
 
 //- panel-default
 mixin panel-default(title)
-    +panel("default",title)
+    +panel("default text-white",title)
         block
 
 //- panel-primary
 mixin panel-primary(title)
-    +panel("primary",title)
+    +panel("primary text-white",title)
         block
 
 //- panel-success
 mixin panel-success(title)
-    +panel("success",title)
+    +panel("success text-white",title)
         block
 
 //- panel-info
 mixin panel-info(title)
-    +panel("info",title)
+    +panel("info text-white",title)
         block
 
 //- panel-warning
 mixin panel-warning(title)
-    +panel("warning",title)
+    +panel("warning text-white",title)
         block
 
 //- panel-danger
 mixin panel-danger(title)
-    +panel("danger",title)
+    +panel("danger text-white",title)
         block

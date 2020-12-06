@@ -26,12 +26,13 @@ mixin a-btn-success(url)
 		block
 
 //- buttons
-mixin btn(caption,style,size)
+mixin btn(caption,style,size, type)
 	- var type = (typeof style === 'undefined') ? "default" : style
+	- var ddtype = type || 'button';
 	unless size
-		button.btn(class="btn-" + type,type="button")= caption
+		button.btn(class="btn-" + type, type=ddtype)= caption
 	else
-		button.btn(class="btn-" + type + " btn-" + size,type="button")= caption
+		button.btn(class="btn-" + type + " btn-" + size,type=ddtype)= caption
 
 
 mixin btn-primary(caption)
